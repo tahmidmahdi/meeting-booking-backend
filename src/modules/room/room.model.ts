@@ -12,6 +12,11 @@ const roomSchema = new Schema<IRoom>(
       trim: true,
       required: true,
     },
+    floorNo: {
+      type: Number,
+      trim: true,
+      required: true,
+    },
     pricePerSlot: {
       type: Number,
       trim: true,
@@ -25,6 +30,7 @@ const roomSchema = new Schema<IRoom>(
     amenities: [
       {
         type: String,
+        required: true,
       },
     ],
     isDeleted: {
@@ -37,4 +43,4 @@ const roomSchema = new Schema<IRoom>(
   }
 );
 
-export const Room = model('Room', roomSchema);
+export const Room = model<IRoom>('Room', roomSchema);

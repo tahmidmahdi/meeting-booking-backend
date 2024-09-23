@@ -12,6 +12,10 @@ const createRoomValidation = zod_1.z.object({
             required_error: 'Room No is required',
             invalid_type_error: 'Room No must be in number',
         }),
+        floorNo: zod_1.z.number({
+            required_error: 'Floor No is required',
+            invalid_type_error: 'Floor No must be in number',
+        }),
         capacity: zod_1.z.number({
             required_error: 'Capacity is required',
             invalid_type_error: 'Capacity must be in number',
@@ -20,8 +24,8 @@ const createRoomValidation = zod_1.z.object({
             required_error: 'Price per slot is required',
             invalid_type_error: 'Price per slot must be in number',
         }),
-        amenities: zod_1.z.array(zod_1.z.number()),
-        isDeleted: zod_1.z.boolean(),
+        amenities: zod_1.z.array(zod_1.z.string()),
+        isDeleted: zod_1.z.boolean().optional(),
     }),
 });
 exports.RoomValidations = {

@@ -10,6 +10,10 @@ const createRoomValidation = z.object({
       required_error: 'Room No is required',
       invalid_type_error: 'Room No must be in number',
     }),
+    floorNo: z.number({
+      required_error: 'Floor No is required',
+      invalid_type_error: 'Floor No must be in number',
+    }),
     capacity: z.number({
       required_error: 'Capacity is required',
       invalid_type_error: 'Capacity must be in number',
@@ -18,8 +22,8 @@ const createRoomValidation = z.object({
       required_error: 'Price per slot is required',
       invalid_type_error: 'Price per slot must be in number',
     }),
-    amenities: z.array(z.number()),
-    isDeleted: z.boolean(),
+    amenities: z.array(z.string()),
+    isDeleted: z.boolean().optional(),
   }),
 });
 

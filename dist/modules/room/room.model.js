@@ -12,6 +12,11 @@ const roomSchema = new mongoose_1.Schema({
         trim: true,
         required: true,
     },
+    floorNo: {
+        type: Number,
+        trim: true,
+        required: true,
+    },
     pricePerSlot: {
         type: Number,
         trim: true,
@@ -25,6 +30,7 @@ const roomSchema = new mongoose_1.Schema({
     amenities: [
         {
             type: String,
+            required: true,
         },
     ],
     isDeleted: {
