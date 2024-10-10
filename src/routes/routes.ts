@@ -1,5 +1,6 @@
 import express, {Router} from 'express';
 import {RoomRoutes} from '../modules/room/room.route';
+import {SlotRoutes} from '../modules/slot/slot.route';
 import {UserRoutes} from '../modules/users/users.route';
 
 const router = express.Router();
@@ -17,6 +18,10 @@ const moduleRoutes: Array<IModuleRoute> = [
   {
     path: '/rooms',
     route: RoomRoutes,
+  },
+  {
+    path: '/slots',
+    route: SlotRoutes,
   },
 ];
 
