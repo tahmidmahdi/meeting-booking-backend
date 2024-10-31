@@ -32,6 +32,7 @@ const userSchema = new mongoose_1.Schema({
         type: String,
         trim: true,
         required: true,
+        select: 0,
     },
     phone: {
         type: String,
@@ -56,14 +57,24 @@ const userSchema = new mongoose_1.Schema({
 });
 userSchema.pre('save', function (next) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { password } = this;
-        const encryptedPassword = yield bcrypt_1.default.hash(password, Number(config_1.default.bcrypt_salt_rounds));
-        this.password = encryptedPassword;
+        this.password = yield bcrypt_1.default.hash(this.password, Number(config_1.default.bcrypt_salt_rounds));
         next();
     });
 });
-userSchema.post('save', function (document, next) {
-    delete document.password;
-    next();
-});
+// userSchema.set('toJSON', {
+//   transform: (doc, ret) => {
+//     delete ret.password;
+//     return ret;
+//   },
+// });
+userSchema.statics.isUserExistByEmail = function (email) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return yield exports.User.findOne({ email }).select('+password');
+    });
+};
+userSchema.statics.isPasswordMatched = function (password, hash) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return yield bcrypt_1.default.compare(password, hash);
+    });
+};
 exports.User = (0, mongoose_1.model)('User', userSchema);

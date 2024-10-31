@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt';
 import {model, Schema} from 'mongoose';
 import config from '../../config';
-import {IUser} from './users.interface';
-const userSchema = new Schema<IUser>(
+import {IUser, UserModel} from './users.interface';
+const userSchema = new Schema<IUser, UserModel>(
   {
     name: {
       type: String,
@@ -19,6 +19,7 @@ const userSchema = new Schema<IUser>(
       type: String,
       trim: true,
       required: true,
+      select: 0,
     },
     phone: {
       type: String,
@@ -45,18 +46,29 @@ const userSchema = new Schema<IUser>(
 );
 
 userSchema.pre('save', async function (next) {
-  const {password} = this;
-  const encryptedPassword = await bcrypt.hash(
-    password as string,
+  this.password = await bcrypt.hash(
+    this.password as string,
     Number(config.bcrypt_salt_rounds)
   );
-  this.password = encryptedPassword;
   next();
 });
 
-userSchema.post('save', function (document, next) {
-  delete document.password;
-  next();
-});
+// userSchema.set('toJSON', {
+//   transform: (doc, ret) => {
+//     delete ret.password;
+//     return ret;
+//   },
+// });
 
-export const User = model<IUser>('User', userSchema);
+userSchema.statics.isUserExistByEmail = async function (email: string) {
+  return await User.findOne({email}).select('+password');
+};
+
+userSchema.statics.isPasswordMatched = async function (
+  password: string,
+  hash: string
+) {
+  return await bcrypt.compare(password, hash);
+};
+
+export const User = model<IUser, UserModel>('User', userSchema);

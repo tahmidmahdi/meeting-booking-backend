@@ -6,6 +6,8 @@ import {UsersService} from './users.service';
 
 const createUsers = catchAsync(async (req: Request, res: Response) => {
   const response = await UsersService.createUserIntoDB(req.body);
+  delete response.password;
+
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

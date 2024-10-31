@@ -12,21 +12,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserControllers = void 0;
+exports.AuthControllers = void 0;
 const http_status_1 = __importDefault(require("http-status"));
 const catchAsync_1 = __importDefault(require("../../utils/catchAsync"));
 const sendResponse_1 = __importDefault(require("../../utils/sendResponse"));
-const users_service_1 = require("./users.service");
-const createUsers = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const response = yield users_service_1.UsersService.createUserIntoDB(req.body);
-    delete response.password;
+const auth_service_1 = require("./auth.service");
+const loginUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const response = yield auth_service_1.AuthServices.loginUser(req.body);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
-        message: 'User created Successfully',
+        message: 'User is logged in successfully',
         data: response,
     });
 }));
-exports.UserControllers = {
-    createUsers,
+exports.AuthControllers = {
+    loginUser,
 };

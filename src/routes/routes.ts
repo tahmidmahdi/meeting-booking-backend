@@ -1,4 +1,5 @@
 import express, {Router} from 'express';
+import {AuthRoutes} from '../modules/auth/auth.route';
 import {RoomRoutes} from '../modules/room/room.route';
 import {SlotRoutes} from '../modules/slot/slot.route';
 import {UserRoutes} from '../modules/users/users.route';
@@ -14,6 +15,10 @@ const moduleRoutes: Array<IModuleRoute> = [
   {
     path: '/users',
     route: UserRoutes,
+  },
+  {
+    path: '/auth',
+    route: AuthRoutes,
   },
   {
     path: '/rooms',
