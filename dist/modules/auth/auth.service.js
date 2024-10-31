@@ -21,7 +21,6 @@ const users_model_1 = require("../users/users.model");
 const loginUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     //   check if the user does exist
     const user = yield users_model_1.User.isUserExistByEmail(payload.email);
-    console.log(user);
     if (!user) {
         throw new AppError_1.default(http_status_1.default.NOT_FOUND, 'This user is invalid');
     }

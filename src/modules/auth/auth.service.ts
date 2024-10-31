@@ -7,8 +7,6 @@ import {ILoginUser} from './auth.interface';
 const loginUser = async (payload: ILoginUser) => {
   //   check if the user does exist
   const user = await User.isUserExistByEmail(payload.email);
-  console.log(user);
-
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, 'This user is invalid');
   }

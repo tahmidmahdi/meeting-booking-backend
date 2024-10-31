@@ -6,30 +6,25 @@ import AppError from '../errors/AppError';
 import {TUserRole} from '../modules/users/users.interface';
 import {User} from '../modules/users/users.model';
 import catchAsync from '../utils/catchAsync';
-const auth = (...requiredRoles: TUserRole[]) => {
-  console.log(requiredRoles);
 
+const auth = (...requiredRoles: TUserRole[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers.authorization;
-
     if (!token) {
       throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized');
     }
-    // check the token is valid
 
     const decoded = jwt.verify(token, config.jwt_access_secret as string);
-    if (
-      requiredRoles &&
-      !requiredRoles.includes((decoded as JwtPayload)?.role)
-    ) {
-      throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized');
+    const {email, role} = decoded as JwtPayload;
+
+    if (requiredRoles && !requiredRoles.includes(role)) {
+      throw new AppError(httpStatus.FORBIDDEN, 'Forbidden');
     }
-    const {email, role, iat} = decoded as JwtPayload;
     const user = await User.isUserExistByEmail(email);
     if (user.isDeleted) {
       throw new AppError(httpStatus.FORBIDDEN, 'This user is deleted');
     }
-    req.user = decoded as JwtPayload;
+    req.user = user;
     next();
   });
 };
