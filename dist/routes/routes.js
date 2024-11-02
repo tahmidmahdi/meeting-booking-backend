@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const auth_route_1 = require("../modules/auth/auth.route");
+const booking_route_1 = require("../modules/booking/booking.route");
 const room_route_1 = require("../modules/room/room.route");
 const slot_route_1 = require("../modules/slot/slot.route");
 const users_route_1 = require("../modules/users/users.route");
@@ -25,6 +26,10 @@ const moduleRoutes = [
     {
         path: '/slots',
         route: slot_route_1.SlotRoutes,
+    },
+    {
+        path: '/bookings',
+        route: booking_route_1.BookingRoutes,
     },
 ];
 moduleRoutes.forEach((routes) => router.use(routes.path, routes.route));

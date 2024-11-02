@@ -1,5 +1,6 @@
 import express, {Router} from 'express';
 import {AuthRoutes} from '../modules/auth/auth.route';
+import {BookingRoutes} from '../modules/booking/booking.route';
 import {RoomRoutes} from '../modules/room/room.route';
 import {SlotRoutes} from '../modules/slot/slot.route';
 import {UserRoutes} from '../modules/users/users.route';
@@ -27,6 +28,10 @@ const moduleRoutes: Array<IModuleRoute> = [
   {
     path: '/slots',
     route: SlotRoutes,
+  },
+  {
+    path: '/bookings',
+    route: BookingRoutes,
   },
 ];
 
