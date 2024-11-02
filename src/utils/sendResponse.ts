@@ -1,4 +1,5 @@
 import {Response} from 'express';
+import responseFilter from './responseFilter';
 
 interface IResponse<T> {
   statusCode: number;
@@ -13,7 +14,7 @@ const sendResponse = <T>(res: Response, payload: IResponse<T>) => {
     statusCode,
     success,
     message,
-    data,
+    data: responseFilter(data as unknown as Record<string, string | undefined>),
   });
 };
 

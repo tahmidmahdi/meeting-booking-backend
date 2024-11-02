@@ -5,10 +5,16 @@ import {AuthValidation} from './auth.validation';
 
 const router = express.Router();
 
-router.post(
-  '/login',
-  validateRequest(AuthValidation.loginValidationSchema),
-  AuthControllers.loginUser
-);
+router
+  .post(
+    '/login',
+    validateRequest(AuthValidation.loginValidationSchema),
+    AuthControllers.loginUser
+  )
+  .post(
+    '/refresh-token',
+    validateRequest(AuthValidation.refreshTokenValidationSchema),
+    AuthControllers.refreshToken
+  );
 
 export const AuthRoutes = router;

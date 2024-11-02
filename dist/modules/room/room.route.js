@@ -12,7 +12,7 @@ const room_controller_1 = require("./room.controller");
 const room_validation_1 = require("./room.validation");
 const router = express_1.default.Router();
 router
-    .post('/create-room', (0, validateRequest_1.default)(room_validation_1.RoomValidations.createRoomValidation), room_controller_1.RoomControllers.createRoom)
+    .post('/create-room', (0, auth_1.default)(users_constant_1.USER_ROLE.admin), (0, validateRequest_1.default)(room_validation_1.RoomValidations.createRoomValidation), room_controller_1.RoomControllers.createRoom)
     .get('/', (0, auth_1.default)(users_constant_1.USER_ROLE.admin, users_constant_1.USER_ROLE.user), room_controller_1.RoomControllers.getAllRooms)
     .get('/:id', room_controller_1.RoomControllers.getRoomByID);
 exports.RoomRoutes = router;

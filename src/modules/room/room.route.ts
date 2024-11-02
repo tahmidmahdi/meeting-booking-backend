@@ -10,6 +10,7 @@ const router = express.Router();
 router
   .post(
     '/create-room',
+    auth(USER_ROLE.admin),
     validateRequest(RoomValidations.createRoomValidation),
     RoomControllers.createRoom
   )
