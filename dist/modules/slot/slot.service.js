@@ -62,7 +62,17 @@ const getAllSlotsFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
     const response = yield slot_model_1.Slot.find().populate('room');
     return response;
 });
+const checkSlotAvailability = (payload, query) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(query);
+    const response = yield slot_model_1.Slot.find({
+        date: query ? query.date : payload.date,
+        room: query ? query.room : payload.room,
+        isBooked: !query ? false : true,
+    });
+    return response;
+});
 exports.SlotServices = {
     createSlotIntoDB,
     getAllSlotsFromDB,
+    checkSlotAvailability,
 };

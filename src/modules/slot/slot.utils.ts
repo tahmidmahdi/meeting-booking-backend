@@ -17,7 +17,7 @@ export const generateSlotTimeInterval = (
   startTimeInMinutes: number,
   totalSlots: number,
   room: Schema.Types.ObjectId,
-  date: Date
+  date: string
 ) => {
   const slots = [];
   for (let i = 0; i < totalSlots; i++) {

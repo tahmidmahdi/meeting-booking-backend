@@ -20,6 +20,16 @@ const createSlotValidation = zod_1.z.object({
         isBooked: zod_1.z.boolean().optional(),
     }),
 });
+const checkSlotAvailabilityValidation = zod_1.z.object({
+    body: zod_1.z.object({
+        date: zod_1.z.string({
+            required_error: 'Date is required',
+            invalid_type_error: 'Date should be in YYYY-MM-DD formate',
+        }),
+        room: zod_1.z.string({ required_error: 'Room id is required' }),
+    }),
+});
 exports.SlotValidations = {
     createSlotValidation,
+    checkSlotAvailabilityValidation,
 };

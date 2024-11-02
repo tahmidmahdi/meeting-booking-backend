@@ -37,7 +37,22 @@ const getAllSlotsFromDB = async () => {
   return response;
 };
 
+const checkSlotAvailability = async (
+  payload: Partial<ISlot>,
+  query: Partial<ISlot>
+) => {
+  console.log(query);
+
+  const response = await Slot.find({
+    date: query ? query.date : payload.date,
+    room: query ? query.room : payload.room,
+    isBooked: !query ? false : true,
+  });
+  return response;
+};
+
 export const SlotServices = {
   createSlotIntoDB,
   getAllSlotsFromDB,
+  checkSlotAvailability,
 };

@@ -24,7 +24,21 @@ const getAllSlots = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const shotsByAvailability = catchAsync(async (req: Request, res: Response) => {
+  const query = req.query;
+  const body = req.body;
+
+  const response = await SlotServices.checkSlotAvailability(body, query);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Slot is available',
+    data: response,
+  });
+});
+
 export const SlotControllers = {
   createSlot,
   getAllSlots,
+  shotsByAvailability,
 };

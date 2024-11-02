@@ -35,7 +35,19 @@ const getAllSlots = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, vo
         data: response,
     });
 }));
+const shotsByAvailability = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const query = req.query;
+    const body = req.body;
+    const response = yield slot_service_1.SlotServices.checkSlotAvailability(body, query);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: 'Slot is available',
+        data: response,
+    });
+}));
 exports.SlotControllers = {
     createSlot,
     getAllSlots,
+    shotsByAvailability,
 };

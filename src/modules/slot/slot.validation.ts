@@ -19,6 +19,17 @@ const createSlotValidation = z.object({
   }),
 });
 
+const checkSlotAvailabilityValidation = z.object({
+  body: z.object({
+    date: z.string({
+      required_error: 'Date is required',
+      invalid_type_error: 'Date should be in YYYY-MM-DD formate',
+    }),
+    room: z.string({required_error: 'Room id is required'}),
+  }),
+});
+
 export const SlotValidations = {
   createSlotValidation,
+  checkSlotAvailabilityValidation,
 };
