@@ -23,8 +23,13 @@ const getRoomFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const response = yield room_model_1.Room.findById(id);
     return response;
 });
+const updateRoomIntoDB = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const response = yield room_model_1.Room.findByIdAndUpdate(id, payload, { new: true });
+    return response;
+});
 exports.RoomServices = {
     createRoomIntoDB,
     getAllRoomsFromDB,
     getRoomFromDB,
+    updateRoomIntoDB,
 };

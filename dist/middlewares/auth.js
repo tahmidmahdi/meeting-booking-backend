@@ -24,10 +24,14 @@ const auth = (...requiredRoles) => {
         if (!token) {
             throw new AppError_1.default(http_status_1.default.UNAUTHORIZED, 'You are not authorized');
         }
-        const decoded = jsonwebtoken_1.default.verify(token, config_1.default.jwt_access_secret);
+        if (!token.includes('Bearer')) {
+            throw new AppError_1.default(http_status_1.default.UNAUTHORIZED, 'You are not authorized');
+        }
+        const tokenWithoutBearer = token.split(' ')[1];
+        const decoded = jsonwebtoken_1.default.verify(tokenWithoutBearer, config_1.default.jwt_access_secret);
         const { email, role } = decoded;
         if (requiredRoles && !requiredRoles.includes(role)) {
-            throw new AppError_1.default(http_status_1.default.FORBIDDEN, 'Forbidden');
+            throw new AppError_1.default(http_status_1.default.FORBIDDEN, 'You are not authorized');
         }
         const user = yield users_model_1.User.isUserExistByEmail(email);
         if (user.isDeleted) {

@@ -10,15 +10,25 @@ import catchAsync from '../utils/catchAsync';
 const auth = (...requiredRoles: TUserRole[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers.authorization;
+
     if (!token) {
       throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized');
     }
 
-    const decoded = jwt.verify(token, config.jwt_access_secret as string);
+    if (!token.includes('Bearer')) {
+      throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized');
+    }
+
+    const tokenWithoutBearer = token.split(' ')[1];
+
+    const decoded = jwt.verify(
+      tokenWithoutBearer,
+      config.jwt_access_secret as string
+    );
     const {email, role} = decoded as JwtPayload;
 
     if (requiredRoles && !requiredRoles.includes(role)) {
-      throw new AppError(httpStatus.FORBIDDEN, 'Forbidden');
+      throw new AppError(httpStatus.FORBIDDEN, 'You are not authorized');
     }
     const user = await User.isUserExistByEmail(email);
     if (user.isDeleted) {

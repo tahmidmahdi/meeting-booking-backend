@@ -46,8 +46,8 @@ const loginUser = async (payload: ILoginUser) => {
   );
 
   return {
-    accessToken,
-    refreshToken,
+    accessToken: `Bearer ${accessToken}`,
+    refreshToken: `Bearer ${refreshToken}`,
     data: filteredUser,
   };
 };

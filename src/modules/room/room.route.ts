@@ -15,6 +15,16 @@ router
     RoomControllers.createRoom
   )
   .get('/', auth(USER_ROLE.admin, USER_ROLE.user), RoomControllers.getAllRooms)
-  .get('/:id', RoomControllers.getRoomByID);
+  .get(
+    '/:id',
+    auth(USER_ROLE.admin, USER_ROLE.user),
+    RoomControllers.getRoomByID
+  )
+  .put(
+    '/:id',
+    auth(USER_ROLE.admin),
+    validateRequest(RoomValidations.updateRoomValidation),
+    RoomControllers.updateRoom
+  );
 
 export const RoomRoutes = router;

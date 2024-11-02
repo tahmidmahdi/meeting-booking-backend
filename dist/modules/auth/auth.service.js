@@ -44,8 +44,8 @@ const loginUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const refreshToken = (0, auth_utils_1.default)(jwtPayload, config_1.default.jwt_refresh_secret, config_1.default.jwt_refresh_expires_in);
     const filteredUser = (0, responseFilter_1.default)(user);
     return {
-        accessToken,
-        refreshToken,
+        accessToken: `Bearer ${accessToken}`,
+        refreshToken: `Bearer ${refreshToken}`,
         data: filteredUser,
     };
 });

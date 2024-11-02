@@ -46,8 +46,20 @@ const getRoomByID = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, vo
         data: response,
     });
 }));
+const updateRoom = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const data = req.body;
+    const { id } = req.params;
+    const response = yield room_service_1.RoomServices.updateRoomIntoDB(id, data);
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: http_status_1.default.OK,
+        message: 'Room updated successfully',
+        data: response,
+    });
+}));
 exports.RoomControllers = {
     createRoom,
     getAllRooms,
     getRoomByID,
+    updateRoom,
 };
