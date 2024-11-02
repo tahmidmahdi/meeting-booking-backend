@@ -57,9 +57,20 @@ const updateRoom = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, voi
         data: response,
     });
 }));
+const deleteRoom = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    const response = yield room_service_1.RoomServices.deleteRoomFromDB(id);
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: http_status_1.default.OK,
+        message: 'Room deleted successfully',
+        data: response,
+    });
+}));
 exports.RoomControllers = {
     createRoom,
     getAllRooms,
     getRoomByID,
     updateRoom,
+    deleteRoom,
 };

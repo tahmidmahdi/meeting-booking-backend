@@ -9,5 +9,7 @@ const validateRequest_1 = __importDefault(require("../../middlewares/validateReq
 const slot_controller_1 = require("./slot.controller");
 const slot_validation_1 = require("./slot.validation");
 const router = express_1.default.Router();
-router.post('/create-slot', (0, validateRequest_1.default)(slot_validation_1.SlotValidations.createSlotValidation), slot_controller_1.SlotControllers.createSlot);
+router
+    .post('/create-slot', (0, validateRequest_1.default)(slot_validation_1.SlotValidations.createSlotValidation), slot_controller_1.SlotControllers.createSlot)
+    .get('/', slot_controller_1.SlotControllers.getAllSlots);
 exports.SlotRoutes = router;

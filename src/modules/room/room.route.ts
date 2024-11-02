@@ -25,6 +25,7 @@ router
     auth(USER_ROLE.admin),
     validateRequest(RoomValidations.updateRoomValidation),
     RoomControllers.updateRoom
-  );
+  )
+  .delete('/:id', auth(USER_ROLE.admin), RoomControllers.deleteRoom);
 
 export const RoomRoutes = router;

@@ -26,6 +26,16 @@ const createSlot = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, voi
         data: response,
     });
 }));
+const getAllSlots = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const response = yield slot_service_1.SlotServices.getAllSlotsFromDB();
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: 'Slots fetched successfully',
+        data: response,
+    });
+}));
 exports.SlotControllers = {
     createSlot,
+    getAllSlots,
 };

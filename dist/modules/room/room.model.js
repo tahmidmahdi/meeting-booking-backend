@@ -40,4 +40,8 @@ const roomSchema = new mongoose_1.Schema({
 }, {
     timestamps: true,
 });
+roomSchema.pre('find', function (next) {
+    this.where({ isDeleted: { $ne: true } });
+    next();
+});
 exports.Room = (0, mongoose_1.model)('Room', roomSchema);

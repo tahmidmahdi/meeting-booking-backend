@@ -21,9 +21,19 @@ const updateRoomIntoDB = async (id: string, payload: Partial<IRoom>) => {
   return response;
 };
 
+const deleteRoomFromDB = async (id: string) => {
+  const response = await Room.findByIdAndUpdate(
+    id,
+    {isDeleted: true},
+    {new: true}
+  );
+  return response;
+};
+
 export const RoomServices = {
   createRoomIntoDB,
   getAllRoomsFromDB,
   getRoomFromDB,
   updateRoomIntoDB,
+  deleteRoomFromDB,
 };

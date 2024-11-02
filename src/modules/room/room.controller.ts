@@ -48,9 +48,21 @@ const updateRoom = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const deleteRoom = catchAsync(async (req: Request, res: Response) => {
+  const {id} = req.params;
+  const response = await RoomServices.deleteRoomFromDB(id);
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Room deleted successfully',
+    data: response,
+  });
+});
+
 export const RoomControllers = {
   createRoom,
   getAllRooms,
   getRoomByID,
   updateRoom,
+  deleteRoom,
 };

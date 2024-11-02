@@ -5,10 +5,12 @@ import {SlotValidations} from './slot.validation';
 
 const router = express.Router();
 
-router.post(
-  '/create-slot',
-  validateRequest(SlotValidations.createSlotValidation),
-  SlotControllers.createSlot
-);
+router
+  .post(
+    '/create-slot',
+    validateRequest(SlotValidations.createSlotValidation),
+    SlotControllers.createSlot
+  )
+  .get('/', SlotControllers.getAllSlots);
 
 export const SlotRoutes = router;
